@@ -9,7 +9,18 @@ const groupsWithUsers = () => new Promise((resolve, reject) => {
   Promise.all([getUsers(), getGroups(), getUserGroups()])
     .then(([users, groups, userGroupsJoin]) => {
       console.warn(users, userGroupsJoin);
-      const allGroupInfoArray = [];
+      const allGroupInfoArray = groups.map((group) => {
+        const groupRelationshipArray = userGroupsJoin.filter(
+          (ug) => ug.group_id === group.id
+        );
+
+        const userInfoArray = groupRelationshipArray.map(
+          (groupRelationship) => users.find((user) => user.id
+          === groupRelationship.user_id)
+        );
+
+        return { ...group, users, userInfoArray };
+      });
 
       resolve(allGroupInfoArray);
     }).catch((error) => reject(error));
