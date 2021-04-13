@@ -24,7 +24,7 @@ const groupsComponent = (groups) => {
         <td>${group.name}</td>group
         <td class="group-description">${group.description}</td>
         <td>${moment(group.date).from()}</td>
-        <td>??</td>
+        <td>${group.count}</td>
       </tr>
     `);
   });
